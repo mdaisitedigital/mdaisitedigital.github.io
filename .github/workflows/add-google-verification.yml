@@ -26,18 +26,20 @@ jobs:
           text = path.read_text(encoding='utf-8')
 
           verification = '<meta name="google-site-verification" content="mluJCMt-jivuf-dvjGim-TNk0M1P4U8DmS8pVMq55Us" />'
-          analytics = '''<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5F1944ZQYE"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-5F1944ZQYE');
-  </script>'''
+          analytics_lines = [
+              '<!-- Google tag (gtag.js) -->',
+              '<script async src="https://www.googletagmanager.com/gtag/js?id=G-5F1944ZQYE"></script>',
+              '<script>',
+              '  window.dataLayer = window.dataLayer || [];',
+              '  function gtag(){dataLayer.push(arguments);}',
+              "  gtag('js', new Date());",
+              "  gtag('config', 'G-5F1944ZQYE');",
+              '</script>',
+          ]
+          analytics = '\n  '.join(analytics_lines)
 
-          lower = text.lower()
           marker = '<head>'
-          pos = lower.find(marker)
+          pos = text.lower().find(marker)
           if pos == -1:
               raise SystemExit('Tag <head> não encontrada em index.html')
           insert_at = pos + len(marker)
