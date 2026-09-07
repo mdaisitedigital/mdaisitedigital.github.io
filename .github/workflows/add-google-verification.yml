@@ -49,3 +49,5 @@ jobs:
           git add index.html
           git commit -m "Adicionar verificação do Google Search Console"
           git push
+
+# Triggered for Search Console verification
